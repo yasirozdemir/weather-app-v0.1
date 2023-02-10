@@ -3,6 +3,9 @@ const initialState = {
     city: undefined,
     country: undefined,
   },
+  search: {
+    unit: undefined,
+  },
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -21,6 +24,14 @@ const mainReducer = (state = initialState, action) => {
         location: {
           ...state.location,
           country: action.payload,
+        },
+      };
+    case "SET_UNIT":
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          unit: action.payload,
         },
       };
     default:

@@ -1,3 +1,5 @@
+import { useSelector, useDispatch } from "react-redux";
+
 const CurrentWeather = () => {
   const APIkey = "add88e3395b3389388ec8f68dad58c25";
 
@@ -17,17 +19,38 @@ const CurrentWeather = () => {
   //     "&units=" +
   //     unit;
 
-  const location = {
-    city: "london",
-    country: "uk",
-  };
+  // between line 25 and 35 will be on search page
+
+  const dispatch = useDispatch();
+
+  dispatch({
+    type: "SET_CITY",
+    payload: "london",
+  });
+
+  dispatch({
+    type: "SET_COUNTRY",
+    payload: "uk",
+  });
+
+  dispatch({
+    type: "SET_UNIT",
+    payload: "metric",
+  });
+
+  const city = useSelector((state) => state.location.city);
+  const country = useSelector((state) => state.location.city);
+  const unit = useSelector((state) => state.search.unit);
 
   const url =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
-    location.city +
+    city +
     "," +
-    location.country +
-    "&APPID=5cc9f350a2aad6b066e11020e57669da";
+    country +
+    "&APPID=" +
+    APIkey +
+    "&units=" +
+    unit;
 
   const fetchWeatherData = async () => {
     try {
@@ -50,7 +73,7 @@ const CurrentWeather = () => {
     }
   };
 
-  //   fetchWeatherData();
+  // fetchWeatherData();
 
   return (
     <>
