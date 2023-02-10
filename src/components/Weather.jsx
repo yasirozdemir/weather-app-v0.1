@@ -1,19 +1,24 @@
 const Weather = () => {
   const APIkey = "add88e3395b3389388ec8f68dad58c25";
-  const coordinates = {
-    latitude: "10.99",
-    longitude: "44.34",
-  };
-  const unit = "metric";
+
+  // I'll keep following line for an advanced version
+  //   const coordinates = {
+  //     latitude: "10.99",
+  //     longitude: "44.34",
+  //   };
+  //   const unit = "metric";
+  //   const url =
+  //     "https://api.openweathermap.org/data/2.5/weather?lat=" +
+  //     coordinates.latitude +
+  //     "&lon=" +
+  //     coordinates.longitude +
+  //     "&appid=" +
+  //     APIkey +
+  //     "&units=" +
+  //     unit;
+
   const url =
-    "https://api.openweathermap.org/data/2.5/weather?lat=" +
-    coordinates.latitude +
-    "&lon=" +
-    coordinates.longitude +
-    "&appid=" +
-    APIkey +
-    "&units=" +
-    unit;
+    "https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=5cc9f350a2aad6b066e11020e57669da";
 
   const fetchWeatherData = async () => {
     try {
@@ -38,7 +43,11 @@ const Weather = () => {
 
   //   fetchWeatherData();
 
-  return <h1>Hello</h1>;
+  return (
+    <>
+      <h1>weather</h1>
+    </>
+  );
 };
 
 export default Weather;
