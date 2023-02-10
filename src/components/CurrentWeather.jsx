@@ -6,9 +6,10 @@ import {
   BsFillCloudRainHeavyFill,
 } from "react-icons/bs";
 import { HiSun } from "react-icons/hi";
-import Forecast from "./Forecast";
+import { FaWind, FaHandHoldingWater } from "react-icons/fa";
 import { useParams } from "react-router";
 import { useState } from "react";
+import Forecast from "./Forecast";
 
 const CurrentWeather = () => {
   const params = useParams();
@@ -49,43 +50,51 @@ const CurrentWeather = () => {
 
   return (
     <>
-      <Container>
-        <Row className="justify-content-center">
-          {data ? (
-            <Col xs={12} md={6} className="weatherCard mt-5 px-5 py-3">
-              {isLoading && <Spinner animation="grow"></Spinner>}
-              <div>
-                <h1>{data.name}, today</h1>
-                <h2>{data.main.temp} °C</h2>
-                <small>Max {data.main.temp_max} °C</small>
-                <small> • </small>
-                <small>Min {data.main.temp_min} °C</small>
-              </div>
-              <div>
-                {data.weather[0].main === "Clouds" && (
-                  <BsFillCloudsFill className="weatherIcon" />
-                )}
-                {data.weather[0].main === "Clear" && (
-                  <HiSun className="weatherIcon" />
-                )}
-                {data.weather[0].main === "Rain" && (
-                  <BsFillCloudRainHeavyFill className="weatherIcon" />
-                )}
-                {data.weather[0].main === "Snow" && (
-                  <BsCloudSnowFill className="weatherIcon" />
-                )}
-                {data.weather[0].main === "Half Cloud" && (
-                  <BsCloudSunFill className="weatherIcon" />
-                )}
-              </div>
-            </Col>
-          ) : (
-            <Alert variant="danger">Something went wrong!</Alert>
-          )}
-          {isError && <Alert variant="danger">Something went wrong!</Alert>}
-        </Row>
+      <Container style={{ minHeight: "100vh" }}>
+        {data ? (
+          <>
+            <Row className="justify-content-center">
+              <Col xs={12} md={6} className="weatherCard mt-5 px-5 py-3">
+                {isLoading && <Spinner animation="grow"></Spinner>}
+                <div>
+                  <h1>{data.name}, today</h1>
+                  <h2>{data.main.temp} °C</h2>
+                  <small>Max {data.main.temp_max} °C</small>
+                  <small> • </small>
+                  <small>Min {data.main.temp_min} °C</small>
+                </div>
+                <div className="d-flex flex-column align-items-center">
+                  {data.weather[0].main === "Clouds" && (
+                    <BsFillCloudsFill className="weatherIcon" />
+                  )}
+                  {data.weather[0].main === "Clear" && (
+                    <HiSun className="weatherIcon" />
+                  )}
+                  {data.weather[0].main === "Rain" && (
+                    <BsFillCloudRainHeavyFill className="weatherIcon" />
+                  )}
+                  {data.weather[0].main === "Snow" && (
+                    <BsCloudSnowFill className="weatherIcon" />
+                  )}
+                  {data.weather[0].main === "Half Cloud" && (
+                    <BsCloudSunFill className="weatherIcon" />
+                  )}
+                  <div className="d-flex align-items-center">
+                    <FaWind />
+                    <span className="ml-1">{data.wind.speed}</span>
+                    <FaHandHoldingWater className="ml-3" />
+                    <span className="ml-1">{data.main.humidity}</span>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </>
+        ) : (
+          <Alert variant="danger">Something went wrong!</Alert>
+        )}
+        {isError && <Alert variant="danger">Something went wrong!</Alert>}
+        <Forecast />
       </Container>
-      <Forecast />
     </>
   );
 };
