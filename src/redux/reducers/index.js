@@ -5,7 +5,6 @@ const initialState = {
   search: {
     query: "",
   },
-  weatherData: {},
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -26,14 +25,7 @@ const mainReducer = (state = initialState, action) => {
           query: action.payload,
         },
       };
-    case "SET_WEATHERDATA":
-      return {
-        ...state,
-        weatherData: {
-          ...state.weatherData,
-          weather: action.payload,
-        },
-      };
+
     default:
       return state;
   }

@@ -9,14 +9,14 @@ import {
 import { HiSun } from "react-icons/hi";
 import Forecast from "./Forecast";
 import { useParams } from "react-router";
+import { useState } from "react";
 
 const CurrentWeather = () => {
   const params = useParams();
   const city = params.city;
 
-  const data = useSelector((state) => state.weatherData);
+  const [data, setData] = useState(null);
 
-  const dispatch = useDispatch();
   const APIkey = "add88e3395b3389388ec8f68dad58c25";
 
   const url =
@@ -30,12 +30,9 @@ const CurrentWeather = () => {
     try {
       const response = await fetch(url);
       if (response.ok) {
-        const data = await response.json();
-        console.log(data); // didnt delete it in case any need
-        dispatch({
-          type: "SET_WEATHERDATA",
-          payload: data,
-        });
+        const dataFromServer = await response.json();
+        console.log(dataFromServer); // didnt delete it in case any need
+        setData(dataFromServer);
       } else {
         console.error("error");
       }
@@ -44,7 +41,11 @@ const CurrentWeather = () => {
     }
   };
 
-  fetchWeatherData();
+  useState(() => {
+    fetchWeatherData();
+  }, []);
+
+  console.log(data);
 
   return (
     <>
