@@ -1,13 +1,24 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Col } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
+import {
+  BsFillCloudsFill,
+  BsCloudSunFill,
+  BsCloudSnowFill,
+  BsFillCloudRainHeavyFill,
+} from "react-icons/bs";
+import { HiSun } from "react-icons/hi";
+import Forecast from "./Forecast";
+import { useParams } from "react-router";
 
 const CurrentWeather = () => {
+  const params = useParams();
+  const city = params.city;
+
+  const data = useSelector((state) => state.weatherData);
+
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.weatherData.weather);
+  const APIkey = "add88e3395b3389388ec8f68dad58c25";
 
-  const APIkey = "95be62a34fd70cd4cf4492858f8a20c1";
-
-  const city = useSelector((state) => state.search.query);
   const url =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
@@ -20,7 +31,7 @@ const CurrentWeather = () => {
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
-        // console.log(data); // didnt delete it in case any need
+        console.log(data); // didnt delete it in case any need
         dispatch({
           type: "SET_WEATHERDATA",
           payload: data,
@@ -35,17 +46,39 @@ const CurrentWeather = () => {
 
   fetchWeatherData();
 
-  console.log(url);
   return (
     <>
-      <Col>
-        <h1>current weather</h1>
-      </Col>
-      <Col>
-        <button onClick={() => console.table(data.main)}>main</button>
-        <button onClick={() => console.table(data.weather)}>weather</button>
-        <button onClick={() => console.table(data.wind)}>wind</button>
-      </Col>
+      <Container>
+        <Row className="justify-content-center">
+          <Col xs={12} md={6} className="weatherCard mt-5 px-5 py-3">
+            <div>
+              <h1>{data.name}, today</h1>
+              <h2>{data.main.temp} °C</h2>
+              <small>Max {data.main.temp_max} °C</small>
+              <small> • </small>
+              <small>Min {data.main.temp_min} °C</small>
+            </div>
+            <div>
+              {data.weather[0].main === "Clouds" && (
+                <BsFillCloudsFill className="weatherIcon" />
+              )}
+              {data.weather[0].main === "Clear" && (
+                <HiSun className="weatherIcon" />
+              )}
+              {data.weather[0].main === "Rain" && (
+                <BsFillCloudRainHeavyFill className="weatherIcon" />
+              )}
+              {data.weather[0].main === "Snow" && (
+                <BsCloudSnowFill className="weatherIcon" />
+              )}
+              {data.weather[0].main === "Half Cloud" && (
+                <BsCloudSunFill className="weatherIcon" />
+              )}
+            </div>
+          </Col>
+        </Row>
+      </Container>
+      <Forecast />
     </>
   );
 };

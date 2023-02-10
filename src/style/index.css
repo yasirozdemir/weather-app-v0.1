@@ -1,6 +1,18 @@
-#landing {
+body {
   background-image: url(https://images.pexels.com/photos/2686558/pexels-photo-2686558.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+
+.weatherCard {
+  display: flex;
+  background-color: rgb(151, 211, 235);
+  border-radius: 0.25rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weatherIcon {
+  font-size: 8vw;
 }

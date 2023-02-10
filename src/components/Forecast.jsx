@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 const Forecast = () => {
-  const APIkey = "30a1ec4df947d62b3a39aceefef6bb64";
+  const APIkey = "add88e3395b3389388ec8f68dad58c25";
 
   const city = useSelector((state) => state.search.query);
 
