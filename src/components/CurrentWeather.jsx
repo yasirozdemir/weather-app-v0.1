@@ -1,5 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Alert, Spinner } from "react-bootstrap";
 import {
   BsFillCloudsFill,
   BsCloudSunFill,
@@ -16,8 +15,10 @@ const CurrentWeather = () => {
   const city = params.city;
 
   const [data, setData] = useState(null);
+  const [isError, setError] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
-  const APIkey = "add88e3395b3389388ec8f68dad58c25";
+  const APIkey = "eeaa1c4b8d481e6b014d81c4dfe64c54";
 
   const url =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -31,13 +32,14 @@ const CurrentWeather = () => {
       const response = await fetch(url);
       if (response.ok) {
         const dataFromServer = await response.json();
-        console.log(dataFromServer); // didnt delete it in case any need
         setData(dataFromServer);
+        setLoading(false);
       } else {
-        console.error("error");
+        setError(true);
       }
     } catch (error) {
       console.error(error);
+      setError(true);
     }
   };
 
@@ -49,8 +51,9 @@ const CurrentWeather = () => {
     <>
       <Container>
         <Row className="justify-content-center">
-          {data && (
+          {data ? (
             <Col xs={12} md={6} className="weatherCard mt-5 px-5 py-3">
+              {isLoading && <Spinner animation="grow"></Spinner>}
               <div>
                 <h1>{data.name}, today</h1>
                 <h2>{data.main.temp} °C</h2>
@@ -76,7 +79,10 @@ const CurrentWeather = () => {
                 )}
               </div>
             </Col>
+          ) : (
+            <Alert variant="danger">Something went wrong!</Alert>
           )}
+          {isError && <Alert variant="danger">Something went wrong!</Alert>}
         </Row>
       </Container>
       <Forecast />
