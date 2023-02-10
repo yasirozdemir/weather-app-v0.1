@@ -1,4 +1,4 @@
-const Weather = () => {
+const CurrentWeather = () => {
   const APIkey = "add88e3395b3389388ec8f68dad58c25";
 
   // I'll keep following line for an advanced version
@@ -17,8 +17,17 @@ const Weather = () => {
   //     "&units=" +
   //     unit;
 
+  const location = {
+    city: "london",
+    country: "uk",
+  };
+
   const url =
-    "https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=5cc9f350a2aad6b066e11020e57669da";
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
+    location.city +
+    "," +
+    location.country +
+    "&APPID=5cc9f350a2aad6b066e11020e57669da";
 
   const fetchWeatherData = async () => {
     try {
@@ -45,9 +54,9 @@ const Weather = () => {
 
   return (
     <>
-      <h1>weather</h1>
+      <h1>current weather</h1>
     </>
   );
 };
 
-export default Weather;
+export default CurrentWeather;

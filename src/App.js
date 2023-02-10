@@ -1,11 +1,11 @@
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
-import Weather from "./components/Weather";
+import CurrentWeather from "./components/CurrentWeather";
 
 function App() {
   return (
     <BrowserRouter>
-      <Weather />
+      <CurrentWeather />
     </BrowserRouter>
   );
 }
