@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
-import { useParams } from "react-router";
+// import { useParams } from "react-router";
 
 const Forecast = () => {
-  const APIkey = "eeaa1c4b8d481e6b014d81c4dfe64c54";
+  // const APIkey = "eeaa1c4b8d481e6b014d81c4dfe64c54";
 
-  const params = useParams();
-  const city = params.city;
+  // const params = useParams();
+  // const city = params.city;
 
-  const url =
-    "https://api.openweathermap.org/data/2.5/forecast?q=" +
-    city +
-    ",&APPID=" +
-    APIkey +
-    "&units=metric";
+  // const url =
+  //   "https://api.openweathermap.org/data/2.5/forecast?q=" +
+  //   city +
+  //   ",&APPID=" +
+  //   APIkey +
+  //   "&units=metric";
 
   // const dataFollowingDays = [];
 
