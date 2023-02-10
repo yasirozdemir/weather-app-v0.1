@@ -5,7 +5,7 @@ const CurrentWeather = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.weatherData.weather);
 
-  const APIkey = "30a1ec4df947d62b3a39aceefef6bb64";
+  const APIkey = "95be62a34fd70cd4cf4492858f8a20c1";
 
   const city = useSelector((state) => state.search.query);
   const url =

@@ -8,7 +8,7 @@ import Search from "./components/Search";
 function App() {
   return (
     <BrowserRouter>
-      <Container>
+      <Container fluid>
         <Routes>
           <Route path="/" element={<Search />} />
           <Route

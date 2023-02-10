@@ -14,8 +14,9 @@ const Search = () => {
 
   return (
     <Row>
-      <Col xs={6} md={12} className="mx-auto">
+      <Col xs={6} md={12} className="mx-auto p-0">
         <div
+          id="landing"
           style={{ minHeight: "100vh" }}
           className="d-flex flex-column justify-content-center  align-items-center"
         >
