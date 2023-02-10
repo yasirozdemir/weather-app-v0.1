@@ -25,12 +25,12 @@ const CurrentWeather = () => {
 
   dispatch({
     type: "SET_CITY",
-    payload: "london",
+    payload: "istanbul",
   });
 
   dispatch({
     type: "SET_COUNTRY",
-    payload: "uk",
+    payload: "turkey",
   });
 
   dispatch({
@@ -57,7 +57,7 @@ const CurrentWeather = () => {
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
-        // console.log(data); // didnt delete it in case any need
+        console.log(data); // didnt delete it in case any need
         const generalInfo = data.main;
         const weatherInfo = data.weather;
         const windInfo = data.wind;
@@ -73,7 +73,7 @@ const CurrentWeather = () => {
     }
   };
 
-  // fetchWeatherData();
+  fetchWeatherData();
 
   return (
     <>

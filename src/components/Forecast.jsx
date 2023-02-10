@@ -17,8 +17,6 @@ const Forecast = () => {
     "&units=" +
     unit;
 
-  console.log(url);
-
   const fetchForecastData = async () => {
     try {
       const response = await fetch(url);
@@ -33,7 +31,7 @@ const Forecast = () => {
     }
   };
 
-  fetchForecastData();
+  //   fetchForecastData();
 
   return <h1>forecast</h1>;
 };
