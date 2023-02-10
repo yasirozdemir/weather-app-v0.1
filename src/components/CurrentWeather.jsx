@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 const CurrentWeather = () => {
   const APIkey = "add88e3395b3389388ec8f68dad58c25";
+  const dispatch = useDispatch();
 
   // I'll keep following line for an advanced version
   //   const coordinates = {
@@ -21,17 +22,17 @@ const CurrentWeather = () => {
 
   // between line 25 and 35 will be on search page
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  dispatch({
-    type: "SET_CITY",
-    payload: "istanbul",
-  });
+  // dispatch({
+  //   type: "SET_CITY",
+  //   payload: "istanbul",
+  // });
 
-  dispatch({
-    type: "SET_COUNTRY",
-    payload: "turkey",
-  });
+  // dispatch({
+  //   type: "SET_COUNTRY",
+  //   payload: "turkey",
+  // });
 
   dispatch({
     type: "SET_UNIT",
@@ -39,7 +40,7 @@ const CurrentWeather = () => {
   });
 
   const city = useSelector((state) => state.location.city);
-  const country = useSelector((state) => state.location.city);
+  const country = useSelector((state) => state.location.country);
   const unit = useSelector((state) => state.search.unit);
 
   const url =
@@ -73,7 +74,7 @@ const CurrentWeather = () => {
     }
   };
 
-  fetchWeatherData();
+  // fetchWeatherData();
 
   return (
     <>
