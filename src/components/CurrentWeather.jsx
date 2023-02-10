@@ -9,34 +9,20 @@ const CurrentWeather = () => {
     payload: "istanbul",
   });
 
-  dispatch({
-    type: "SET_COUNTRY",
-    payload: "turkey",
-  });
-
-  dispatch({
-    type: "SET_UNIT",
-    payload: "metric",
-  });
-
   const city = useSelector((state) => state.location.city);
-  // const country = useSelector((state) => state.location.country);
-  const unit = useSelector((state) => state.search.unit);
 
   const url =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     ",&APPID=" +
-    APIkey +
-    "&units=" +
-    unit;
+    APIkey;
 
   const fetchWeatherData = async () => {
     try {
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
-        console.log(data); // didnt delete it in case any need
+        // console.log(data); // didnt delete it in case any need
         const generalInfo = data.main;
         const weatherInfo = data.weather;
         const windInfo = data.wind;

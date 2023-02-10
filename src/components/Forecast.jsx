@@ -4,18 +4,12 @@ const Forecast = () => {
   const APIkey = "add88e3395b3389388ec8f68dad58c25";
 
   const city = useSelector((state) => state.location.city);
-  const country = useSelector((state) => state.location.city);
-  const unit = useSelector((state) => state.search.unit);
 
   const url =
     "https://api.openweathermap.org/data/2.5/forecast?q=" +
     city +
-    "," +
-    country +
-    "&APPID=" +
-    APIkey +
-    "&units=" +
-    unit;
+    ",&APPID=" +
+    APIkey;
 
   const fetchForecastData = async () => {
     try {
