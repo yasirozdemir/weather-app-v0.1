@@ -1,15 +1,16 @@
 import { useSelector } from "react-redux";
 
 const Forecast = () => {
-  const APIkey = "add88e3395b3389388ec8f68dad58c25";
+  const APIkey = "30a1ec4df947d62b3a39aceefef6bb64";
 
-  const city = useSelector((state) => state.location.city);
+  const city = useSelector((state) => state.search.query);
 
   const url =
     "https://api.openweathermap.org/data/2.5/forecast?q=" +
     city +
     ",&APPID=" +
-    APIkey;
+    APIkey +
+    "&units=metric";
 
   const fetchForecastData = async () => {
     try {

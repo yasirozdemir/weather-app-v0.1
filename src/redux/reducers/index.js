@@ -1,7 +1,11 @@
 const initialState = {
   location: {
-    city: undefined,
+    city: "",
   },
+  search: {
+    query: "",
+  },
+  weatherData: {},
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -12,6 +16,22 @@ const mainReducer = (state = initialState, action) => {
         location: {
           ...state.location,
           city: action.payload,
+        },
+      };
+    case "SET_QUERY":
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          query: action.payload,
+        },
+      };
+    case "SET_WEATHERDATA":
+      return {
+        ...state,
+        weatherData: {
+          ...state.weatherData,
+          weather: action.payload,
         },
       };
     default:

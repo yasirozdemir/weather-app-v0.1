@@ -1,21 +1,19 @@
 import { useSelector, useDispatch } from "react-redux";
+import { Col } from "react-bootstrap";
 
 const CurrentWeather = () => {
-  const APIkey = "add88e3395b3389388ec8f68dad58c25";
   const dispatch = useDispatch();
+  const data = useSelector((state) => state.weatherData.weather);
 
-  dispatch({
-    type: "SET_CITY",
-    payload: "istanbul",
-  });
+  const APIkey = "30a1ec4df947d62b3a39aceefef6bb64";
 
-  const city = useSelector((state) => state.location.city);
-
+  const city = useSelector((state) => state.search.query);
   const url =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     ",&APPID=" +
-    APIkey;
+    APIkey +
+    "&units=metric";
 
   const fetchWeatherData = async () => {
     try {
@@ -23,13 +21,10 @@ const CurrentWeather = () => {
       if (response.ok) {
         const data = await response.json();
         // console.log(data); // didnt delete it in case any need
-        const generalInfo = data.main;
-        const weatherInfo = data.weather;
-        const windInfo = data.wind;
-
-        console.table(generalInfo);
-        console.table(weatherInfo);
-        console.table(windInfo);
+        dispatch({
+          type: "SET_WEATHERDATA",
+          payload: data,
+        });
       } else {
         console.error("error");
       }
@@ -38,11 +33,19 @@ const CurrentWeather = () => {
     }
   };
 
-  // fetchWeatherData();
+  fetchWeatherData();
 
+  console.log(url);
   return (
     <>
-      <h1>current weather</h1>
+      <Col>
+        <h1>current weather</h1>
+      </Col>
+      <Col>
+        <button onClick={() => console.table(data.main)}>main</button>
+        <button onClick={() => console.table(data.weather)}>weather</button>
+        <button onClick={() => console.table(data.wind)}>wind</button>
+      </Col>
     </>
   );
 };

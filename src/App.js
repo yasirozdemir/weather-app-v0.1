@@ -1,5 +1,5 @@
-import { Container, Row } from "react-bootstrap";
-import { BrowserRouter } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import CurrentWeather from "./components/CurrentWeather";
 import Forecast from "./components/Forecast";
@@ -9,15 +9,18 @@ function App() {
   return (
     <BrowserRouter>
       <Container>
-        <Row>
-          <Search />
-        </Row>
-        <Row>
-          <CurrentWeather />
-        </Row>
-        <Row>
-          <Forecast />
-        </Row>
+        <Routes>
+          <Route path="/" element={<Search />} />
+          <Route
+            path="/weather/:city"
+            element={
+              <>
+                <CurrentWeather />
+                <Forecast />
+              </>
+            }
+          ></Route>
+        </Routes>
       </Container>
     </BrowserRouter>
   );
