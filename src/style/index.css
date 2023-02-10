@@ -7,7 +7,7 @@ body {
 
 .weatherCard {
   display: flex;
-  background-color: rgb(151, 211, 235);
+  background-color: rgba(255, 255, 255, 0.623);
   border-radius: 0.25rem;
   align-items: center;
   justify-content: space-between;
@@ -15,4 +15,20 @@ body {
 
 .weatherIcon {
   font-size: 8vw;
+}
+
+#landing input {
+  background-color: rgba(255, 255, 255, 0.233);
+  color: rgba(0, 0, 0, 0.808);
+  font-size: larger;
+  font-weight: 600;
+  transition: all 150ms;
+}
+
+#landing input:focus,
+#landing input:hover {
+  background-color: rgba(255, 255, 255, 0.623);
+  color: rgba(0, 0, 0);
+  border-color: white;
+  box-shadow: none;
 }

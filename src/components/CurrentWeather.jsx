@@ -9,7 +9,7 @@ import { HiSun } from "react-icons/hi";
 import { FaWind, FaHandHoldingWater } from "react-icons/fa";
 import { useParams } from "react-router";
 import { useState } from "react";
-import Forecast from "./Forecast";
+// import Forecast from "./Forecast";
 
 const CurrentWeather = () => {
   const params = useParams();
@@ -90,10 +90,10 @@ const CurrentWeather = () => {
             </Row>
           </>
         ) : (
-          <Alert variant="danger">Something went wrong!</Alert>
+          <Spinner animation="grow"></Spinner>
         )}
         {isError && <Alert variant="danger">Something went wrong!</Alert>}
-        <Forecast />
+        {/* <Forecast /> */}
       </Container>
     </>
   );
