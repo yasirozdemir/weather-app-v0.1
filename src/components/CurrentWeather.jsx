@@ -4,35 +4,15 @@ const CurrentWeather = () => {
   const APIkey = "add88e3395b3389388ec8f68dad58c25";
   const dispatch = useDispatch();
 
-  // I'll keep following line for an advanced version
-  //   const coordinates = {
-  //     latitude: "10.99",
-  //     longitude: "44.34",
-  //   };
-  //   const unit = "metric";
-  //   const url =
-  //     "https://api.openweathermap.org/data/2.5/weather?lat=" +
-  //     coordinates.latitude +
-  //     "&lon=" +
-  //     coordinates.longitude +
-  //     "&appid=" +
-  //     APIkey +
-  //     "&units=" +
-  //     unit;
+  dispatch({
+    type: "SET_CITY",
+    payload: "istanbul",
+  });
 
-  // between line 25 and 35 will be on search page
-
-  // const dispatch = useDispatch();
-
-  // dispatch({
-  //   type: "SET_CITY",
-  //   payload: "istanbul",
-  // });
-
-  // dispatch({
-  //   type: "SET_COUNTRY",
-  //   payload: "turkey",
-  // });
+  dispatch({
+    type: "SET_COUNTRY",
+    payload: "turkey",
+  });
 
   dispatch({
     type: "SET_UNIT",
@@ -40,15 +20,13 @@ const CurrentWeather = () => {
   });
 
   const city = useSelector((state) => state.location.city);
-  const country = useSelector((state) => state.location.country);
+  // const country = useSelector((state) => state.location.country);
   const unit = useSelector((state) => state.search.unit);
 
   const url =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
-    "," +
-    country +
-    "&APPID=" +
+    ",&APPID=" +
     APIkey +
     "&units=" +
     unit;
