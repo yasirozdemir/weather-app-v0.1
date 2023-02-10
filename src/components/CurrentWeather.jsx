@@ -45,38 +45,38 @@ const CurrentWeather = () => {
     fetchWeatherData();
   }, []);
 
-  console.log(data);
-
   return (
     <>
       <Container>
         <Row className="justify-content-center">
-          <Col xs={12} md={6} className="weatherCard mt-5 px-5 py-3">
-            <div>
-              <h1>{data.name}, today</h1>
-              <h2>{data.main.temp} °C</h2>
-              <small>Max {data.main.temp_max} °C</small>
-              <small> • </small>
-              <small>Min {data.main.temp_min} °C</small>
-            </div>
-            <div>
-              {data.weather[0].main === "Clouds" && (
-                <BsFillCloudsFill className="weatherIcon" />
-              )}
-              {data.weather[0].main === "Clear" && (
-                <HiSun className="weatherIcon" />
-              )}
-              {data.weather[0].main === "Rain" && (
-                <BsFillCloudRainHeavyFill className="weatherIcon" />
-              )}
-              {data.weather[0].main === "Snow" && (
-                <BsCloudSnowFill className="weatherIcon" />
-              )}
-              {data.weather[0].main === "Half Cloud" && (
-                <BsCloudSunFill className="weatherIcon" />
-              )}
-            </div>
-          </Col>
+          {data && (
+            <Col xs={12} md={6} className="weatherCard mt-5 px-5 py-3">
+              <div>
+                <h1>{data.name}, today</h1>
+                <h2>{data.main.temp} °C</h2>
+                <small>Max {data.main.temp_max} °C</small>
+                <small> • </small>
+                <small>Min {data.main.temp_min} °C</small>
+              </div>
+              <div>
+                {data.weather[0].main === "Clouds" && (
+                  <BsFillCloudsFill className="weatherIcon" />
+                )}
+                {data.weather[0].main === "Clear" && (
+                  <HiSun className="weatherIcon" />
+                )}
+                {data.weather[0].main === "Rain" && (
+                  <BsFillCloudRainHeavyFill className="weatherIcon" />
+                )}
+                {data.weather[0].main === "Snow" && (
+                  <BsCloudSnowFill className="weatherIcon" />
+                )}
+                {data.weather[0].main === "Half Cloud" && (
+                  <BsCloudSunFill className="weatherIcon" />
+                )}
+              </div>
+            </Col>
+          )}
         </Row>
       </Container>
       <Forecast />
