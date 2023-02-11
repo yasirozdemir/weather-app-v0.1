@@ -1,7 +1,7 @@
 const initialState = {
   userLocation: {
-    latitude: null,
-    longtitude: null,
+    latitude: "",
+    longtitude: "",
   },
 };
 
@@ -11,8 +11,8 @@ const mainReducer = (state = initialState, action) => {
       return {
         ...state,
         userLocation: {
-          latitude: action.payload.lat,
-          longtitude: action.payload.lon,
+          latitude: action.payload.latitude,
+          longitude: action.payload.longitude,
         },
       };
     default:
