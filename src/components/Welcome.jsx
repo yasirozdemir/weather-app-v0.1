@@ -2,6 +2,8 @@ import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import Search from "./Search";
+import { TbTemperatureMinus, TbTemperaturePlus } from "react-icons/tb";
+import { FaWind } from "react-icons/fa";
 
 const Welcome = () => {
   const [isFetchStarted, setIsFetchStarted] = useState(false);
@@ -42,12 +44,7 @@ const Welcome = () => {
       dateInfo: format(current, "cccc',' MMM d"),
       timeInfo: format(current, "k':'mm"),
     };
-    greetingsMessage(format(current, "k"));
     set_time_date(time_and_date);
-  };
-
-  const greetingsMessage = (hour) => {
-    return <h1 className="text-center">greetingsMessage</h1>;
   };
 
   useEffect(() => {
@@ -71,28 +68,40 @@ const Welcome = () => {
         style={{ height: "100vh" }}
       >
         {data && (
-          <Col xs={10} md={12}>
-            {greetingsMessage()}
-            <div className="d-flex align-items-center">
+          <Col xs={10} md={7}>
+            <div className="d-flex align-items-center mb-5">
               <div>
                 <h1>
-                  {data.name}, {data.sys.country}
+                  {data.name}, {data.sys.country} ({data.main.temp})°
                 </h1>
-                <h6>{time_date.dateInfo}</h6>
-                <h6>{time_date.timeInfo}</h6>
+                <h4>
+                  {time_date.dateInfo} {time_date.timeInfo}
+                </h4>
+                <div className="d-flex align-items-center">
+                  <div className="d-flex align-items-center">
+                    <TbTemperatureMinus className="mr-1" />
+                    <span>{data.main.temp_min}°</span>
+                  </div>
+                  <div className="d-flex align-items-center ml-2">
+                    <TbTemperaturePlus className="mr-1" />
+                    <span>{data.main.temp_max}°</span>
+                  </div>
+                  <div className="d-flex align-items-center ml-2">
+                    <FaWind className="mr-1" />
+                    <span> {data.wind.speed} km/h</span>
+                  </div>
+                </div>
               </div>
-              <h1>{data.main.temp + "°"}</h1>
+              <div className="ml-auto">
+                <img
+                  src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+                  alt={data.weather[0].main}
+                />
+              </div>
             </div>
-            <h6>max: {data.main.temp_max + "°"}</h6>
-            <h6>min: {data.main.temp_min + "°"}</h6>
-            <h6>sea_level: {data.main.sea_level + "m"}</h6>
-            <h6>wind: {data.wind.speed}</h6>
-            <h6>wind degree: {data.wind.deg}</h6>
+            <Search />
           </Col>
         )}
-        <Col xs={10} md={12} className="mx-auto p-0">
-          <Search />
-        </Col>
       </Row>
     </Container>
   );

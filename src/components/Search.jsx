@@ -11,7 +11,7 @@ const Search = () => {
   };
 
   return (
-    <div className="d-flex flex-column justify-content-center  align-items-center">
+    <div className="d-flex justify-content-center">
       <Form
         id="searchBar"
         onSubmit={handleSubmit}
