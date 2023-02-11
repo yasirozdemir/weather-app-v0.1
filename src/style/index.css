@@ -10,7 +10,8 @@ body {
   user-select: none;
 }
 
-#welcome {
+#welcome,
+#weather {
   position: absolute;
   top: 0;
   right: 0;

@@ -27,7 +27,7 @@ function App() {
                 </>
               }
             />
-            <Route path="weather/:cityName" element={<Weather />} />
+            <Route path="/weather/:cityName" element={<Weather />} />
           </Routes>
         </div>
       </BrowserRouter>
