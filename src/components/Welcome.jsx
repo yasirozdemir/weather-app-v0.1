@@ -71,24 +71,24 @@ const Welcome = () => {
           <Col xs={10} md={7}>
             <div className="d-flex align-items-center mb-5">
               <div>
-                <h1>
-                  {data.name}, {data.sys.country} ({data.main.temp})°
+                <h1 style={{ fontWeight: "700" }}>
+                  {data.name}, {data.sys.country} ({data.main.temp}°)
                 </h1>
-                <h4>
+                <h4 style={{ fontWeight: "600" }}>
                   {time_date.dateInfo} {time_date.timeInfo}
                 </h4>
                 <div className="d-flex align-items-center">
                   <div className="d-flex align-items-center">
                     <TbTemperatureMinus className="mr-1" />
-                    <span>{data.main.temp_min}°</span>
+                    <small>{data.main.temp_min}°</small>
                   </div>
                   <div className="d-flex align-items-center ml-2">
                     <TbTemperaturePlus className="mr-1" />
-                    <span>{data.main.temp_max}°</span>
+                    <small>{data.main.temp_max}°</small>
                   </div>
                   <div className="d-flex align-items-center ml-2">
                     <FaWind className="mr-1" />
-                    <span> {data.wind.speed} km/h</span>
+                    <small> {data.wind.speed} km/h</small>
                   </div>
                 </div>
               </div>
