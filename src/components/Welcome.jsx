@@ -1,24 +1,9 @@
 import { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 
-const WelcomeAlternate = () => {
+const Welcome = () => {
   const [isFetchStarted, setIsFetchStarted] = useState(false);
   const [data, setData] = useState();
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const userLocation = position.coords;
-      const url =
-        "https:api.openweathermap.org/data/2.5/weather?lat=" +
-        userLocation.latitude +
-        "&lon=" +
-        userLocation.longitude +
-        "&appid=5cc9f350a2aad6b066e11020e57669da&units=metric";
-      console.log(url);
-      fetchWeatherData(url);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const fetchWeatherData = async (url) => {
     setIsFetchStarted(true);
@@ -36,9 +21,40 @@ const WelcomeAlternate = () => {
     }
   };
 
+  const get_UserCoordinates = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const userLocation = position.coords;
+      const url =
+        "https:api.openweathermap.org/data/2.5/weather?lat=" +
+        userLocation.latitude +
+        "&lon=" +
+        userLocation.longitude +
+        "&appid=5cc9f350a2aad6b066e11020e57669da&units=metric";
+      console.log(url);
+      fetchWeatherData(url);
+    });
+  };
+
+  const get_LocalTime_and_Date = () => {
+    const current = new Date();
+    const time_and_date = {
+      month_day: current.getDate(),
+      week_day: current.getDay(),
+      month: current.getMonth() + 1,
+      hour: current.getHours(),
+    };
+    console.table(time_and_date);
+  };
+
+  useEffect(() => {
+    get_UserCoordinates();
+    get_LocalTime_and_Date();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <>
-      <h1>welcomeAlternate</h1>
+      <h1>Welcome</h1>
       {isFetchStarted || <Spinner animation="grow" variant="secondary" />}
       {data && (
         <h4>
@@ -49,4 +65,4 @@ const WelcomeAlternate = () => {
   );
 };
 
-export default WelcomeAlternate;
+export default Welcome;
