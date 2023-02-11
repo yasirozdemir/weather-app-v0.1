@@ -1,7 +1,7 @@
 const initialState = {
   userLocation: {
     latitude: "",
-    longtitude: "",
+    longitude: "",
   },
 };
 
