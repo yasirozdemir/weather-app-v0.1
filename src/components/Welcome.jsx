@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
-import { Container, Spinner } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import Search from "./Search";
 
 const Welcome = () => {
@@ -42,11 +42,12 @@ const Welcome = () => {
       dateInfo: format(current, "cccc',' MMM d"),
       timeInfo: format(current, "k':'mm"),
     };
+    greetingsMessage(format(current, "k"));
     set_time_date(time_and_date);
   };
 
-  const greetingsMessage = () => {
-    return <h1>Hello</h1>;
+  const greetingsMessage = (hour) => {
+    return <h1 className="text-center">greetingsMessage</h1>;
   };
 
   useEffect(() => {
@@ -56,25 +57,43 @@ const Welcome = () => {
   }, []);
 
   return (
-    <Container>
-      {greetingsMessage()}
-      {isFetchStarted || <Spinner animation="grow" variant="secondary" />}
-      {data && (
-        <>
-          <h2>
-            {data.name}, {data.sys.country}
-          </h2>
-          <h2>{data.main.temp + "°"}</h2>
-          <h2>max: {data.main.temp_max + "°"}</h2>
-          <h2>min: {data.main.temp_min + "°"}</h2>
-          <h2>sea_level: {data.main.sea_level + "m"}</h2>
-          <h2>wind: {data.wind.speed}</h2>
-          <h2>wind degree: {data.wind.deg}</h2>
-          <h2>{time_date.dateInfo}</h2>
-          <h2>{time_date.timeInfo}</h2>
-        </>
+    <Container id="welcome">
+      {isFetchStarted || (
+        <Row
+          className="justify-content-center align-items-center"
+          style={{ height: "100vh" }}
+        >
+          <Spinner animation="grow" variant="light" />
+        </Row>
       )}
-      <Search />
+      <Row
+        className="justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        {data && (
+          <Col xs={10} md={12}>
+            {greetingsMessage()}
+            <div className="d-flex align-items-center">
+              <div>
+                <h1>
+                  {data.name}, {data.sys.country}
+                </h1>
+                <h6>{time_date.dateInfo}</h6>
+                <h6>{time_date.timeInfo}</h6>
+              </div>
+              <h1>{data.main.temp + "°"}</h1>
+            </div>
+            <h6>max: {data.main.temp_max + "°"}</h6>
+            <h6>min: {data.main.temp_min + "°"}</h6>
+            <h6>sea_level: {data.main.sea_level + "m"}</h6>
+            <h6>wind: {data.wind.speed}</h6>
+            <h6>wind degree: {data.wind.deg}</h6>
+          </Col>
+        )}
+        <Col xs={10} md={12} className="mx-auto p-0">
+          <Search />
+        </Col>
+      </Row>
     </Container>
   );
 };
