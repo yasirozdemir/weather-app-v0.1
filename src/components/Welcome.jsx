@@ -17,8 +17,31 @@ const Welcome = () => {
 
   const userLocation = useSelector((state) => state.userLocation);
 
+  //-------------------------------------------------------------------
+
+  const getCurrentWeatherDataForUser = () => {
+    const APIkey = "5cc9f350a2aad6b066e11020e57669da";
+    const lat = userLocation.latitude;
+    const lon = userLocation.longitude;
+    const url =
+      "https://api.openweathermap.org/data/2.5/weather?lat=" +
+      lat +
+      "&lon=" +
+      lon +
+      "&appid=" +
+      APIkey +
+      "&units=metric"; //it's possible to make user select units (metric/imperial)
+
+    console.log(url);
+  };
+
+  const combinedFunction = async () => {
+    await setCurrentLoc();
+    await getCurrentWeatherDataForUser();
+  };
+
   useEffect(() => {
-    setCurrentLoc();
+    combinedFunction();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
