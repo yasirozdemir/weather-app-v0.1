@@ -3,7 +3,7 @@ import { Spinner } from "react-bootstrap";
 
 const WelcomeAlternate = () => {
   const [isFetchStarted, setIsFetchStarted] = useState(false);
-  const [data, setData] = useState({});
+  const [data, setData] = useState();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -39,10 +39,12 @@ const WelcomeAlternate = () => {
   return (
     <>
       <h1>welcomeAlternate</h1>
-      {!isFetchStarted && <Spinner animation="grow" variant="secondary" />}
-      <h4>
-        {data.name}, {data.sys.country}
-      </h4>
+      {isFetchStarted || <Spinner animation="grow" variant="secondary" />}
+      {data && (
+        <h4>
+          {data.name}, {data.sys.country}
+        </h4>
+      )}
     </>
   );
 };
