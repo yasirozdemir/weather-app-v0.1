@@ -1,31 +1,20 @@
 const initialState = {
-  location: {
-    city: "",
-  },
-  search: {
-    query: "",
+  userLocation: {
+    latitude: null,
+    longtitude: null,
   },
 };
 
 const mainReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_CITY":
+    case "SET_USER_LOCATION":
       return {
         ...state,
-        location: {
-          ...state.location,
-          city: action.payload,
+        userLocation: {
+          latitude: action.payload.lat,
+          longtitude: action.payload.lon,
         },
       };
-    case "SET_QUERY":
-      return {
-        ...state,
-        search: {
-          ...state.search,
-          query: action.payload,
-        },
-      };
-
     default:
       return state;
   }
