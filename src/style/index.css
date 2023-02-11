@@ -17,3 +17,40 @@ body {
   bottom: 0;
   left: 0;
 }
+
+#searchBar input,
+#searchBar button {
+  background-color: transparent;
+  border-color: white;
+  color: white;
+  height: 40px;
+  transition: all 200ms;
+}
+
+#searchBar input:hover,
+#searchBar button:hover {
+  background-color: rgba(255, 255, 255, 0.247);
+}
+
+#searchBar input {
+  border-top-right-radius: 0%;
+  border-bottom-right-radius: 0%;
+}
+
+#searchBar input::selection {
+  background-color: rgb(24, 24, 24);
+}
+
+#searchBar input:focus {
+  box-shadow: none;
+}
+
+#searchBar input::placeholder {
+  color: rgba(255, 255, 255, 0.699);
+}
+
+#searchBar button {
+  border-left: transparent;
+  border-top-left-radius: 0%;
+  border-bottom-left-radius: 0%;
+}

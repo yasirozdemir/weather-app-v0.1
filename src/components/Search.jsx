@@ -22,7 +22,7 @@ const Search = () => {
           type="search"
           placeholder="Search for another cities..."
         />
-        <Button variant="light" className="px-2" type="submit">
+        <Button variant="dark" className="px-2" type="submit">
           <MdOutlineSearch style={{ fontSize: "1.4rem" }} />
         </Button>
       </Form>
