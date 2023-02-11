@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { Container, Spinner } from "react-bootstrap";
+import Search from "./Search";
 
 const Welcome = () => {
   const [isFetchStarted, setIsFetchStarted] = useState(false);
@@ -73,6 +74,7 @@ const Welcome = () => {
           <h2>{time_date.timeInfo}</h2>
         </>
       )}
+      <Search />
     </Container>
   );
 };
