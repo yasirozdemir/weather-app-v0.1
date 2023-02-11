@@ -1,8 +1,10 @@
+import { format } from "date-fns";
 import { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
+import { Container, Spinner } from "react-bootstrap";
 
 const Welcome = () => {
   const [isFetchStarted, setIsFetchStarted] = useState(false);
+  const [time_date, set_time_date] = useState();
   const [data, setData] = useState();
 
   const fetchWeatherData = async (url) => {
@@ -12,7 +14,6 @@ const Welcome = () => {
       if (response.ok) {
         const dataFromServer = await response.json();
         setData(dataFromServer);
-        console.log(dataFromServer);
       } else {
         console.error("error");
       }
@@ -30,7 +31,6 @@ const Welcome = () => {
         "&lon=" +
         userLocation.longitude +
         "&appid=5cc9f350a2aad6b066e11020e57669da&units=metric";
-      console.log(url);
       fetchWeatherData(url);
     });
   };
@@ -38,12 +38,14 @@ const Welcome = () => {
   const get_LocalTime_and_Date = () => {
     const current = new Date();
     const time_and_date = {
-      month_day: current.getDate(),
-      week_day: current.getDay(),
-      month: current.getMonth() + 1,
-      hour: current.getHours(),
+      dateInfo: format(current, "cccc',' MMM d"),
+      timeInfo: format(current, "k':'mm"),
     };
-    console.table(time_and_date);
+    set_time_date(time_and_date);
+  };
+
+  const greetingsMessage = () => {
+    return <h1>Hello</h1>;
   };
 
   useEffect(() => {
@@ -53,15 +55,25 @@ const Welcome = () => {
   }, []);
 
   return (
-    <>
-      <h1>Welcome</h1>
+    <Container>
+      {greetingsMessage()}
       {isFetchStarted || <Spinner animation="grow" variant="secondary" />}
       {data && (
-        <h4>
-          {data.name}, {data.sys.country}
-        </h4>
+        <>
+          <h2>
+            {data.name}, {data.sys.country}
+          </h2>
+          <h2>{data.main.temp + "°"}</h2>
+          <h2>max: {data.main.temp_max + "°"}</h2>
+          <h2>min: {data.main.temp_min + "°"}</h2>
+          <h2>sea_level: {data.main.sea_level + "m"}</h2>
+          <h2>wind: {data.wind.speed}</h2>
+          <h2>wind degree: {data.wind.deg}</h2>
+          <h2>{time_date.dateInfo}</h2>
+          <h2>{time_date.timeInfo}</h2>
+        </>
       )}
-    </>
+    </Container>
   );
 };
 
