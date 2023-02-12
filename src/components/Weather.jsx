@@ -38,7 +38,7 @@ const Weather = () => {
   }, []);
 
   return (
-    <Container id="weather" style={{ height: "100vh" }}>
+    <Container id="weather" className="mt-5">
       {isError && (
         <Row className="justify-content-center align-items-center">
           <Alert variant="danger">
@@ -46,13 +46,13 @@ const Weather = () => {
           </Alert>
         </Row>
       )}
-      <Row
-        id="weatherCard"
-        className="justify-content-center align-items-center"
-      >
+      <Row className="justify-content-center align-items-center">
         {data && (
           <Col xs={12} md={7}>
-            <div className="d-flex align-items-center">
+            <div
+              id="weatherCard"
+              className="d-flex align-items-center pl-4 py-4"
+            >
               <div>
                 <h1 style={{ fontWeight: "700" }}>
                   {data.name}
@@ -95,9 +95,7 @@ const Weather = () => {
           </Col>
         )}
       </Row>
-      <Row className="justify-content-center align-items-center">
-        <Forecast cityName={params.cityName} />
-      </Row>
+      <Forecast cityName={params.cityName} />
     </Container>
   );
 };

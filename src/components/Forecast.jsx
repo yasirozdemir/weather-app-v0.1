@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
-import { Row, Alert, Spinner, Col } from "react-bootstrap";
+import { Row, Alert, Spinner, Col, Button } from "react-bootstrap";
+import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 
 const Forecast = ({ cityName }) => {
   const [data, set_data] = useState();
@@ -52,27 +53,17 @@ const Forecast = ({ cityName }) => {
       )}
       {data && (
         <>
-          {data.slice(0, 6).map((el, i) => {
-            return (
-              <Col xs={12} md={6} key={i}>
-                <h3>{(Math.round(el.main.temp * 100) / 100).toFixed(1)}°</h3>
-                <small>
-                  {format(new Date(el.dt * 1000), "cccc")}
-                  {", "}
-                  {format(new Date(el.dt * 1000), "k:mm")}
-                </small>
-                <img
-                  src={`http://openweathermap.org/img/wn/${el.weather[0].icon}@2x.png`}
-                  alt={el.weather[0].main}
-                />
-              </Col>
-            );
-          })}
-          {isUserWantMore && (
-            <>
-              {data.slice(0, 6).map((el, i) => {
-                return (
-                  <Col xs={12} md={6} key={i}>
+          <Row className="justify-content-center align-items-center">
+            {data.slice(0, 6).map((el, i) => {
+              return (
+                <Col
+                  xs={10}
+                  sm={5}
+                  md={4}
+                  key={i}
+                  className="d-flex align-items-center forecastCard pl-4 py-2 mx-1 mt-2"
+                >
+                  <div>
                     <h3>
                       {(Math.round(el.main.temp * 100) / 100).toFixed(1)}°
                     </h3>
@@ -81,15 +72,74 @@ const Forecast = ({ cityName }) => {
                       {", "}
                       {format(new Date(el.dt * 1000), "k:mm")}
                     </small>
-                    <img
-                      src={`http://openweathermap.org/img/wn/${el.weather[0].icon}@2x.png`}
-                      alt={el.weather[0].main}
-                    />
-                  </Col>
-                );
-              })}
-            </>
-          )}
+                  </div>
+                  <img
+                    src={`http://openweathermap.org/img/wn/${el.weather[0].icon}@2x.png`}
+                    alt={el.weather[0].main}
+                    className="ml-auto"
+                  />
+                </Col>
+              );
+            })}
+            {isUserWantMore ? (
+              <>
+                {data.slice(6, 12).map((el, i) => {
+                  return (
+                    <Col
+                      xs={10}
+                      sm={5}
+                      md={4}
+                      key={i}
+                      className="d-flex align-items-center forecastCard pl-4 py-2 mx-1 mt-2"
+                    >
+                      <div>
+                        <h3>
+                          {(Math.round(el.main.temp * 100) / 100).toFixed(1)}°
+                        </h3>
+                        <small>
+                          {format(new Date(el.dt * 1000), "cccc")}
+                          {", "}
+                          {format(new Date(el.dt * 1000), "k:mm")}
+                        </small>
+                      </div>
+                      <img
+                        src={`http://openweathermap.org/img/wn/${el.weather[0].icon}@2x.png`}
+                        alt={el.weather[0].main}
+                        className="ml-auto"
+                      />
+                    </Col>
+                  );
+                })}
+              </>
+            ) : (
+              <></>
+            )}
+          </Row>
+          <Row className="justify-content-center align-items-center mt-2 mb-3">
+            {isUserWantMore ? (
+              <Button
+                id="viewMore"
+                variant="light"
+                className="d-flex align-items-center px-2"
+                onClick={() => {
+                  set_isUserWantMore(false);
+                }}
+              >
+                <AiFillCaretUp />
+              </Button>
+            ) : (
+              <Button
+                id="viewMore"
+                variant="light"
+                className="d-flex align-items-center px-2"
+                onClick={() => {
+                  set_isUserWantMore(true);
+                }}
+              >
+                <AiFillCaretDown />
+              </Button>
+            )}
+          </Row>
         </>
       )}
     </>

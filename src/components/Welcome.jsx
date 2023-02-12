@@ -60,7 +60,7 @@ const Welcome = () => {
   return (
     <>
       <video
-        style={{ height: "100vh", objectFit: "cover" }}
+        style={{ minHeight: "100vh", objectFit: "cover" }}
         autoPlay
         loop
         muted
