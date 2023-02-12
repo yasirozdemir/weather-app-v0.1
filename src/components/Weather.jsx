@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { TbTemperatureMinus, TbTemperaturePlus } from "react-icons/tb";
 import { FaWind } from "react-icons/fa";
 import { format } from "date-fns";
+import Forecast from "./Forecast";
 
 const Weather = () => {
   const [data, set_data] = useState();
@@ -37,24 +38,18 @@ const Weather = () => {
   }, []);
 
   return (
-    <Container id="weather">
+    <Container id="weather" style={{ height: "100vh" }}>
       {isError && (
-        <Row
-          className="justify-content-center align-items-center"
-          style={{ height: "100vh" }}
-        >
+        <Row className="justify-content-center align-items-center">
           <Alert variant="danger">
             Something went wrong. Please refresh the page! :(
           </Alert>
         </Row>
       )}
-      <Row
-        className="justify-content-center align-items-center"
-        style={{ height: "100vh" }}
-      >
+      <Row className="justify-content-center align-items-center">
         {data && (
           <Col xs={12} md={7}>
-            <div className="d-flex align-items-center mb-5">
+            <div className="d-flex align-items-center">
               <div>
                 <h1 style={{ fontWeight: "700" }}>
                   {data.name}
@@ -96,6 +91,9 @@ const Weather = () => {
             </div>
           </Col>
         )}
+      </Row>
+      <Row className="justify-content-center align-items-center">
+        <Forecast cityName={params.cityName} />
       </Row>
     </Container>
   );
