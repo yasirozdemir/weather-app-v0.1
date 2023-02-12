@@ -1,5 +1,6 @@
+import { format } from "date-fns";
 import { useEffect, useState } from "react";
-import { Row, Alert, Spinner } from "react-bootstrap";
+import { Row, Alert, Spinner, Col } from "react-bootstrap";
 
 const Forecast = ({ cityName }) => {
   const [data, set_data] = useState();
@@ -16,7 +17,7 @@ const Forecast = ({ cityName }) => {
       const response = await fetch(url);
       if (response.ok) {
         const dataFromServer = await response.json();
-        set_data(dataFromServer.list);
+        set_data(dataFromServer.list.slice(0, 6));
         set_isLoading(false);
       } else {
         set_isError(true);
@@ -48,7 +49,26 @@ const Forecast = ({ cityName }) => {
           <Spinner animation="grow" variant="light" />
         </Row>
       )}
-      <h1>{cityName}</h1>
+      {data && (
+        <>
+          {data.map((el, i) => {
+            return (
+              <Col xs={12} md={6} key={i}>
+                <h3>{(Math.round(el.main.temp * 100) / 100).toFixed(1)}°</h3>
+                <small>
+                  {format(new Date(el.dt * 1000), "cccc")}
+                  {", "}
+                  {format(new Date(el.dt * 1000), "k:mm")}
+                </small>
+                <img
+                  src={`http://openweathermap.org/img/wn/${el.weather[0].icon}@2x.png`}
+                  alt={el.weather[0].main}
+                />
+              </Col>
+            );
+          })}
+        </>
+      )}
     </>
   );
 };
