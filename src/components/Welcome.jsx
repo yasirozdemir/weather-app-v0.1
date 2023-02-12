@@ -4,6 +4,7 @@ import { Col, Container, Row, Spinner, Alert } from "react-bootstrap";
 import Search from "./Search";
 import { TbTemperatureMinus, TbTemperaturePlus } from "react-icons/tb";
 import { FaWind } from "react-icons/fa";
+import videoSrc from "../assets/PexelsVideos3535.mp4";
 
 const Welcome = () => {
   const [isFetchStarted, setIsFetchStarted] = useState(false);
@@ -57,73 +58,90 @@ const Welcome = () => {
   }, []);
 
   return (
-    <Container id="welcome">
-      {isFetchStarted || (
-        <Row
-          className="justify-content-center align-items-center"
-          style={{ height: "100vh" }}
-        >
-          <Spinner animation="grow" variant="light" />
-        </Row>
-      )}
-      {isError && (
-        <Row
-          className="justify-content-center align-items-center"
-          style={{ height: "100vh" }}
-        >
-          <Alert variant="danger">
-            Something went wrong. Please refresh the page! :(
-          </Alert>
-        </Row>
-      )}
-      <Row
-        className="justify-content-center align-items-center"
-        style={{ height: "100vh" }}
+    <>
+      <video
+        style={{ height: "100vh", objectFit: "cover" }}
+        autoPlay
+        loop
+        muted
+        className="w-100"
       >
-        {data && (
-          <Col xs={12} md={7}>
-            <div className="d-flex align-items-center mb-5">
-              <div>
-                <h1 style={{ fontWeight: "700" }}>
-                  {data.name}{" "}
-                  {(Math.round(data.main.temp * 100) / 100).toFixed(1)}°
-                </h1>
-                <h4 style={{ fontWeight: "600" }}>
-                  {time_date.dateInfo} {time_date.timeInfo}
-                </h4>
-                <div className="d-flex align-items-center">
+        <source src={videoSrc} type="video/mp4" />
+      </video>
+      <Container id="welcome">
+        {isFetchStarted || (
+          <Row
+            className="justify-content-center align-items-center"
+            style={{ height: "100vh" }}
+          >
+            <Spinner animation="grow" variant="light" />
+          </Row>
+        )}
+        {isError && (
+          <Row
+            className="justify-content-center align-items-center"
+            style={{ height: "100vh" }}
+          >
+            <Alert variant="danger">
+              Something went wrong. Please refresh the page! :(
+            </Alert>
+          </Row>
+        )}
+        <Row
+          className="justify-content-center align-items-center"
+          style={{ height: "100vh" }}
+        >
+          {data && (
+            <Col xs={12} md={7}>
+              <div className="d-flex align-items-center mb-5">
+                <div>
+                  <h1 style={{ fontWeight: "700" }}>
+                    {data.name}{" "}
+                    {(Math.round(data.main.temp * 100) / 100).toFixed(1)}°
+                  </h1>
+                  <h4 style={{ fontWeight: "600" }}>
+                    {time_date.dateInfo} {time_date.timeInfo}
+                  </h4>
                   <div className="d-flex align-items-center">
-                    <TbTemperatureMinus className="mr-1" />
-                    <small>
-                      {(Math.round(data.main.temp_min * 100) / 100).toFixed(1)}°
-                    </small>
-                  </div>
-                  <div className="d-flex align-items-center ml-2">
-                    <TbTemperaturePlus className="mr-1" />
-                    <small>
-                      {(Math.round(data.main.temp_max * 100) / 100).toFixed(1)}°
-                    </small>
-                  </div>
-                  <div className="d-flex align-items-center ml-2">
-                    <FaWind className="mr-1" />
-                    <small>
-                      {(Math.round(data.wind.speed * 100) / 100).toFixed(1)}
-                    </small>
+                    <div className="d-flex align-items-center">
+                      <TbTemperatureMinus className="mr-1" />
+                      <small>
+                        {(Math.round(data.main.temp_min * 100) / 100).toFixed(
+                          1
+                        )}
+                        °
+                      </small>
+                    </div>
+                    <div className="d-flex align-items-center ml-2">
+                      <TbTemperaturePlus className="mr-1" />
+                      <small>
+                        {(Math.round(data.main.temp_max * 100) / 100).toFixed(
+                          1
+                        )}
+                        °
+                      </small>
+                    </div>
+                    <div className="d-flex align-items-center ml-2">
+                      <FaWind className="mr-1" />
+                      <small>
+                        {(Math.round(data.wind.speed * 100) / 100).toFixed(1)}
+                      </small>
+                    </div>
                   </div>
                 </div>
+                <div className="ml-auto">
+                  <img
+                    src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+                    alt={data.weather[0].main}
+                  />
+                </div>
               </div>
-              <div className="ml-auto">
-                <img
-                  src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
-                  alt={data.weather[0].main}
-                />
-              </div>
-            </div>
-            <Search />
-          </Col>
-        )}
-      </Row>
-    </Container>
+              <Search />
+            </Col>
+          )}
+        </Row>
+      </Container>
+    </>
   );
 };
 

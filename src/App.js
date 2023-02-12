@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Welcome from "./components/Welcome.jsx";
-import videoSrc from "./assets/PexelsVideos3535.mp4";
 import Weather from "./components/Weather";
 
 function App() {
@@ -9,15 +8,6 @@ function App() {
     <>
       <BrowserRouter>
         <>
-          <video
-            style={{ height: "100vh", objectFit: "cover" }}
-            autoPlay
-            loop
-            muted
-            className="w-100"
-          >
-            <source src={videoSrc} type="video/mp4" />
-          </video>
           <Routes>
             <Route
               path="/"

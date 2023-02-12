@@ -6,6 +6,7 @@ const Forecast = ({ cityName }) => {
   const [data, set_data] = useState();
   const [isError, set_isError] = useState(false);
   const [isLoading, set_isLoading] = useState(true);
+  const [isUserWantMore, set_isUserWantMore] = useState(false);
 
   const url =
     "https://api.openweathermap.org/data/2.5/forecast?q=" +
@@ -17,7 +18,7 @@ const Forecast = ({ cityName }) => {
       const response = await fetch(url);
       if (response.ok) {
         const dataFromServer = await response.json();
-        set_data(dataFromServer.list.slice(0, 6));
+        set_data(dataFromServer.list);
         set_isLoading(false);
       } else {
         set_isError(true);
@@ -51,7 +52,7 @@ const Forecast = ({ cityName }) => {
       )}
       {data && (
         <>
-          {data.map((el, i) => {
+          {data.slice(0, 6).map((el, i) => {
             return (
               <Col xs={12} md={6} key={i}>
                 <h3>{(Math.round(el.main.temp * 100) / 100).toFixed(1)}°</h3>
@@ -67,6 +68,28 @@ const Forecast = ({ cityName }) => {
               </Col>
             );
           })}
+          {isUserWantMore && (
+            <>
+              {data.slice(0, 6).map((el, i) => {
+                return (
+                  <Col xs={12} md={6} key={i}>
+                    <h3>
+                      {(Math.round(el.main.temp * 100) / 100).toFixed(1)}°
+                    </h3>
+                    <small>
+                      {format(new Date(el.dt * 1000), "cccc")}
+                      {", "}
+                      {format(new Date(el.dt * 1000), "k:mm")}
+                    </small>
+                    <img
+                      src={`http://openweathermap.org/img/wn/${el.weather[0].icon}@2x.png`}
+                      alt={el.weather[0].main}
+                    />
+                  </Col>
+                );
+              })}
+            </>
+          )}
         </>
       )}
     </>
