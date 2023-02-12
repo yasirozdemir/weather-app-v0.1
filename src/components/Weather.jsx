@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
-import { Container, Col, Row } from "react-bootstrap";
+import { Container, Col, Row, Alert } from "react-bootstrap";
 import { useParams } from "react-router";
+import { TbTemperatureMinus, TbTemperaturePlus } from "react-icons/tb";
+import { FaWind } from "react-icons/fa";
+import { format } from "date-fns";
 
 const Weather = () => {
   const [data, set_data] = useState();
@@ -12,7 +15,7 @@ const Weather = () => {
     params.cityName +
     ",&APPID=5cc9f350a2aad6b066e11020e57669da&units=metric";
 
-  const get_data = async () => {
+  const get_WeatherData = async () => {
     try {
       const response = await fetch(url);
       if (response.ok) {
@@ -29,33 +32,58 @@ const Weather = () => {
   };
 
   useEffect(() => {
-    get_data();
+    get_WeatherData();
     // eslint-disable-next-line
   }, []);
 
   return (
     <Container id="weather">
+      {isError && (
+        <Row
+          className="justify-content-center align-items-center"
+          style={{ height: "100vh" }}
+        >
+          <Alert variant="danger">
+            Something went wrong. Please refresh the page! :(
+          </Alert>
+        </Row>
+      )}
       <Row
         className="justify-content-center align-items-center"
         style={{ height: "100vh" }}
       >
         {data && (
-          <Col xs={10} md={7}>
+          <Col xs={12} md={7}>
             <div className="d-flex align-items-center mb-5">
               <div>
                 <h1 style={{ fontWeight: "700" }}>
-                  {data.name}, {data.sys.country} ({data.main.temp}°)
+                  {data.name}
+                  {", "}
+                  {data.sys.country}{" "}
+                  {(Math.round(data.main.temp * 100) / 100).toFixed(1)}°
                 </h1>
-
+                <h4 style={{ fontWeight: "600" }}>
+                  {format(new Date(data.dt * 1000), "cccc, MMM d")}{" "}
+                  {format(new Date(data.dt * 1000), "k:mm")}
+                </h4>
                 <div className="d-flex align-items-center">
                   <div className="d-flex align-items-center">
-                    <small>{data.main.temp_min}°</small>
+                    <small>
+                      <TbTemperatureMinus className="mr-1" />
+                      {(Math.round(data.main.temp_min * 100) / 100).toFixed(1)}°
+                    </small>
                   </div>
                   <div className="d-flex align-items-center ml-2">
-                    <small>{data.main.temp_max}°</small>
+                    <small>
+                      <TbTemperaturePlus className="mr-1" />
+                      {(Math.round(data.main.temp_max * 100) / 100).toFixed(1)}°
+                    </small>
                   </div>
                   <div className="d-flex align-items-center ml-2">
-                    <small> {data.wind.speed} km/h</small>
+                    <small>
+                      <FaWind className="mr-1" />
+                      {(Math.round(data.wind.speed * 100) / 100).toFixed(1)}
+                    </small>
                   </div>
                 </div>
               </div>

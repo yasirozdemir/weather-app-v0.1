@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <div>
+        <>
           <video
             style={{ height: "100vh", objectFit: "cover" }}
             autoPlay
@@ -29,7 +29,7 @@ function App() {
             />
             <Route path="/weather/:cityName" element={<Weather />} />
           </Routes>
-        </div>
+        </>
       </BrowserRouter>
     </>
   );

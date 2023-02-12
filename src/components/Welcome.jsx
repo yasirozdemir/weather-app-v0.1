@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
-import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { Col, Container, Row, Spinner, Alert } from "react-bootstrap";
 import Search from "./Search";
 import { TbTemperatureMinus, TbTemperaturePlus } from "react-icons/tb";
 import { FaWind } from "react-icons/fa";
@@ -9,6 +9,7 @@ const Welcome = () => {
   const [isFetchStarted, setIsFetchStarted] = useState(false);
   const [time_date, set_time_date] = useState();
   const [data, setData] = useState();
+  const [isError, set_isError] = useState(false);
 
   const fetchWeatherData = async (url) => {
     setIsFetchStarted(true);
@@ -19,9 +20,11 @@ const Welcome = () => {
         setData(dataFromServer);
       } else {
         console.error("error");
+        set_isError(true);
       }
     } catch (error) {
       console.error(error);
+      set_isError(true);
     }
   };
 
@@ -63,16 +66,27 @@ const Welcome = () => {
           <Spinner animation="grow" variant="light" />
         </Row>
       )}
+      {isError && (
+        <Row
+          className="justify-content-center align-items-center"
+          style={{ height: "100vh" }}
+        >
+          <Alert variant="danger">
+            Something went wrong. Please refresh the page! :(
+          </Alert>
+        </Row>
+      )}
       <Row
         className="justify-content-center align-items-center"
         style={{ height: "100vh" }}
       >
         {data && (
-          <Col xs={10} md={7}>
+          <Col xs={12} md={7}>
             <div className="d-flex align-items-center mb-5">
               <div>
                 <h1 style={{ fontWeight: "700" }}>
-                  {data.name}, {data.sys.country} ({data.main.temp}°)
+                  {data.name}{" "}
+                  {(Math.round(data.main.temp * 100) / 100).toFixed(1)}°
                 </h1>
                 <h4 style={{ fontWeight: "600" }}>
                   {time_date.dateInfo} {time_date.timeInfo}
@@ -80,15 +94,21 @@ const Welcome = () => {
                 <div className="d-flex align-items-center">
                   <div className="d-flex align-items-center">
                     <TbTemperatureMinus className="mr-1" />
-                    <small>{data.main.temp_min}°</small>
+                    <small>
+                      {(Math.round(data.main.temp_min * 100) / 100).toFixed(1)}°
+                    </small>
                   </div>
                   <div className="d-flex align-items-center ml-2">
                     <TbTemperaturePlus className="mr-1" />
-                    <small>{data.main.temp_max}°</small>
+                    <small>
+                      {(Math.round(data.main.temp_max * 100) / 100).toFixed(1)}°
+                    </small>
                   </div>
                   <div className="d-flex align-items-center ml-2">
                     <FaWind className="mr-1" />
-                    <small> {data.wind.speed} km/h</small>
+                    <small>
+                      {(Math.round(data.wind.speed * 100) / 100).toFixed(1)}
+                    </small>
                   </div>
                 </div>
               </div>
