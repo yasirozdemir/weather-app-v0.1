@@ -46,7 +46,10 @@ const Weather = () => {
           </Alert>
         </Row>
       )}
-      <Row className="justify-content-center align-items-center">
+      <Row
+        id="weatherCard"
+        className="justify-content-center align-items-center"
+      >
         {data && (
           <Col xs={12} md={7}>
             <div className="d-flex align-items-center">
