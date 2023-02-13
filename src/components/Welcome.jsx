@@ -37,7 +37,9 @@ const Welcome = () => {
         userLocation.latitude +
         "&lon=" +
         userLocation.longitude +
-        "&appid=5cc9f350a2aad6b066e11020e57669da&units=metric";
+        "&appid=" +
+        process.env.REACT_APP_OPEN_WEATHER_API_KEY +
+        "&units=metric";
       fetchWeatherData(url);
     });
   };

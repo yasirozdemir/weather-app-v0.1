@@ -14,7 +14,9 @@ const Weather = () => {
   const url =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     params.cityName +
-    ",&APPID=5cc9f350a2aad6b066e11020e57669da&units=metric";
+    ",&APPID=" +
+    process.env.REACT_APP_OPEN_WEATHER_API_KEY +
+    "&units=metric";
 
   const get_WeatherData = async () => {
     try {
