@@ -6,6 +6,8 @@ import { FaWind } from "react-icons/fa";
 import { format } from "date-fns";
 import Forecast from "./Forecast";
 
+const apiKey = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
+
 const Weather = () => {
   const [data, set_data] = useState();
   const [isError, set_isError] = useState(false);
@@ -15,7 +17,7 @@ const Weather = () => {
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     params.cityName +
     ",&APPID=" +
-    process.env.REACT_APP_OPEN_WEATHER_API_KEY +
+    apiKey +
     "&units=metric";
 
   const get_WeatherData = async () => {

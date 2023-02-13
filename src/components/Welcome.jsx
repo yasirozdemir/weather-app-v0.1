@@ -29,6 +29,8 @@ const Welcome = () => {
     }
   };
 
+  const apiKey = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
+
   const get_UserCoordinates = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const userLocation = position.coords;
@@ -38,7 +40,7 @@ const Welcome = () => {
         "&lon=" +
         userLocation.longitude +
         "&appid=" +
-        process.env.REACT_APP_OPEN_WEATHER_API_KEY +
+        apiKey +
         "&units=metric";
       fetchWeatherData(url);
     });
